@@ -12,6 +12,6 @@
 
     - name: Certifica que não há repositórios ativos que não sejam oriundos do Satellite
       ansible.builtin.assert:
-        that: yum_repolist.stdout_lines | length > subsc_man.stdout_lines | length
+        that: yum_repolist.stdout_lines | length == subsc_man.stdout_lines | length
         fail_msg: "Podem haver repositórios ativos na máquina {{ inventory_hostname }} que não sejam oriundos do Satellite. Verifique."
 ...
