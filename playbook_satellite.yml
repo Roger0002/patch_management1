@@ -1,7 +1,7 @@
 ---
 - name: Play republicador/promotor dos CVs para homologação
   hosts: localhost
-  ansible_connection: local
+  connection: local
   gather_facts: false
   tasks:
     - name: Realiza a publicação de uma nova versão do(s) CV(s)
