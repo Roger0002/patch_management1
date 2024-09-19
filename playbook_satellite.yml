@@ -11,7 +11,7 @@
         password: "{{ senha_satellite }}"
         server_url: https://satellite.lab5.example.com
         content_view: "{{ item }}"
-        organization: SP
+        organization: Roger Inc
         validate_certs: false
         lifecycle_environments: homologação
 ...
