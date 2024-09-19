@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - name: Realiza a publicação de uma nova versão do(s) CV(s)
-      loop: "{{ lista_vcs }}"
+      loop: "{{ lista_cvs }}"
       redhat.satellite.content_view_version:
         username: "{{ usuario_satellite }}"
         password: "{{ senha_satellite }}"
