@@ -1,0 +1,12 @@
+- name: Play validador de repositórios não oriundos do Satellite
+  hosts: frontend[1-3].lab5.example.com
+  gather_facts: false
+  tasks:
+    - name: Captura o conteúdo do ssl.conf
+      ansible.builtin.set_fact:
+        conteudo_sslconf: "{{ lookup('file', '/etc/httpd/conf.d/ssl.conf') }}"
+
+    - name: Mostra o que capturou
+      ansible.builtin.debug:
+        var: conteudo_sslconf
+...
