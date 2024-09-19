@@ -1,0 +1,17 @@
+- name: Play validador de repositórios não oriundos do Satellite
+  hosts: frontend[1-3].lab5.example.com
+  gather_facts: false
+  tasks:
+    - name: Coleta os repositórios ativos na máquina
+      ansible.builtin.shell: yum -q repolist | grep -Eiv "^repo id"
+      register: yum_repolist
+
+    - name: Coleta os repositórios oriundos do Satellite
+      ansible.builtin.shell: subscription-manager repos --list-enabled | grep -E "^Repo ID"
+      register: subsc_man
+
+    - name: Certifica que não há repositórios ativos que não sejam oriundos do Satellite
+      ansible.builtin.assert:
+        that: yum_repolist.stdout_lines | length > subsc_man.stdout_lines | length
+        fail_msg: "Podem haver repositórios ativos na máquina {{ inventory_hostname }} que não sejam oriundos do Satellite. Verifique."
+...
