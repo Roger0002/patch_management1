@@ -13,5 +13,5 @@
         content_view: "{{ item }}"
         organization: Roger Inc
         validate_certs: false
-        lifecycle_environments: homologação
+        lifecycle_environments: Homologação
 ...
