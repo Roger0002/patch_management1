@@ -1,5 +1,5 @@
 - name: Play validador de repositórios não oriundos do Satellite
-  hosts: frontend[1-3].lab5.example.com
+  hosts: frontend1.lab5.example.com
   gather_facts: false
   tasks:
     - name: Captura o conteúdo do ssl.conf
