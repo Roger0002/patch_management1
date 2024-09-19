@@ -1,0 +1,11 @@
+---
+- name: Play promotor dos CVs para produção
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Realiza a promoção da versão atual do(s) CV(s) para produção
+      loop: "{{ lista_cvs }}"
+      ansible.builtin.include_tasks:
+        file: promocao_cv_prod.yml
+...

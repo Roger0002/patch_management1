@@ -4,7 +4,7 @@
   connection: local
   gather_facts: false
   tasks:
-    - name: Realiza a publicação de uma nova versão do(s) CV(s)
+    - name: Realiza a publicação de uma nova versão do(s) CV(s) + Promoção para homologação
       loop: "{{ lista_cvs }}"
       redhat.satellite.content_view_version:
         username: "{{ usuario_satellite }}"

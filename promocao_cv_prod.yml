@@ -1,0 +1,20 @@
+---
+- name: Pega as informações sobre o CV {{ item }}
+  redhat.satellite.content_view_info:
+    username: "{{ usuario_satellite }}"
+    password: "{{ senha_satellite }}"
+    server_url: https://satellite.lab5.example.com
+    name: "{{ item }}"
+    validate_certs: false
+  register: cv_info
+    
+- name: Só promove a última versão do CV {{ item }} para a produção
+  redhat.satellite.content_view_version:
+    username: "{{ usuario_satellite }}"
+    password: "{{ senha_satellite }}"
+    content_view: "{{ item }}"
+    server_url: https://satellite.lab5.example.com
+    organization: Roger Inc
+    version: "{{ cv_info.content_view.latest_version }}"
+    validate_certs: false
+    lifecycle_environments: Produção
