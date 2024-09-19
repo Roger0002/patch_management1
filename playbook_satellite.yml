@@ -1,0 +1,17 @@
+---
+- name: Play republicador/promotor dos CVs para homologação
+  hosts: localhost
+  ansible_connection: local
+  gather_facts: false
+  tasks:
+    - name: Realiza a publicação de uma nova versão do(s) CV(s)
+      loop: "{{ lista_vcs }}"
+      redhat.satellite.content_view_version:
+        username: "{{ usuario_satellite }}"
+        password: "{{ senha_satellite }}"
+        server_url: https://satellite.lab5.example.com
+        content_view: "{{ item }}"
+        organization: SP
+        validate_certs: false
+        lifecycle_environments: homologação
+...
