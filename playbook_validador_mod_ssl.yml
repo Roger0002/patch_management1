@@ -3,10 +3,12 @@
   gather_facts: false
   tasks:
     - name: Captura o conteúdo do ssl.conf
-      ansible.builtin.set_fact:
-        conteudo_sslconf: "{{ lookup('file', '/etc/httpd/conf.d/ssl.conf') }}"
+      ansible.builtin.slurp:
+        src: /etc/httpd/conf.d/ssl.conf
+      register: aaa
 
-    - name: Mostra o que capturou
-      ansible.builtin.debug:
-        var: conteudo_sslconf
+    - name: Mostra
+      debug:
+        var: aaa
+
 ...
