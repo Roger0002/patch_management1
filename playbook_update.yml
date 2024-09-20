@@ -1,6 +1,6 @@
 ---
 - name: Play atualizador do ambiente NFS
-  hosts: nfs2.lab5.example.com
+  hosts: "{{ servidores }}"
   gather_facts: false
   tasks:
     - name: Atualiza as máquinas
