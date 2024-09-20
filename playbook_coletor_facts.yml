@@ -1,0 +1,6 @@
+---
+- name: Play coletor de facts
+  hosts: all
+  gather_facts: true
+  tasks: []
+...
