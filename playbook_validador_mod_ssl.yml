@@ -1,14 +1,15 @@
-- name: Play validador de repositórios não oriundos do Satellite
+- name: Play executor de backup do ssl.conf
   hosts: frontend1.lab5.example.com
   gather_facts: false
   tasks:
     - name: Captura o conteúdo do ssl.conf
       ansible.builtin.slurp:
         src: /etc/httpd/conf.d/ssl.conf
-      register: aaa
+      register: sslconf_data
 
-    - name: Mostra
-      debug:
-        var: aaa
-
+    - name: Faz o backup do conteúdo de ssl.conf
+      ansible.builtin.copy:
+        remote_src: true
+        content: "{{ sslconf_data['content'] | b64decode }}"
+        dest: /etc/httpd/conf.d/ssl.conf.bkp_{{ lookup("pipe", "date +%d-%m-%Y_%T") }}
 ...
