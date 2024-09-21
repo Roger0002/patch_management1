@@ -1,0 +1,17 @@
+---
+- name: Play atualizador do ambiente NFS
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Atualiza as máquinas
+      notify: reinicializacao
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+
+  handlers:
+    - name: Reboot da máquina
+      ansible.builtin.reboot:
+        reboot_timeout: 2700
+      listen: reinicializacao
+...
