@@ -1,7 +1,7 @@
 ---
 - name: Play atualizador do ambiente NFS
   hosts: "{{ servidores }}"
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: Atualiza as máquinas
       notify: reinicializacao
