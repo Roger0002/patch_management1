@@ -9,6 +9,7 @@
         name: "*"
         state: latest
         nobest: true
+        use_backend: yum4
 
   handlers:
     - name: Reboot da máquina
