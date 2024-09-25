@@ -5,9 +5,10 @@
   tasks:
     - name: Atualiza as máquinas
       notify: reinicializacao
-      ansible.builtin.yum:
+      ansible.builtin.dnf:
         name: "*"
         state: latest
+        nobest: true
 
   handlers:
     - name: Reboot da máquina
