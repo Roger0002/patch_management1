@@ -6,7 +6,7 @@
     usuario: admin
     senha: redhat
   tasks:
-    - name: Coleta o status
+    - name: Coleta o status das configurações atuais
       ansible.builtin.uri:
         url: https://controller.lab5.example.com/api/v2/settings/jobs/
         method: GET
@@ -14,11 +14,23 @@
         url_username: "{{ usuario }}"
         url_password: "{{ senha }}"
         validate_certs: false
-      register: estado_atual_cache_fact
+      register: estado_atual_settings
 
-    - name: Mostra
-      ansible.builtin.debug:
-        var: estado_atual_cache_fact['json']['ANSIBLE_FACT_CACHE_TIMEOUT']
+    - name: Armazena o valor do cache de facts atual noma variável nova
+      ansible.builtin.set_fact:
+        valor_cache_facts_original: "{{ estado_atual_settings['json']['ANSIBLE_FACT_CACHE_TIMEOUT'] }}"
+
+     - name: Muda o valor de ANSIBLE_FACT_CACHE_TIMEOUT para 1
+       ansible.controller.settings:    
+        controller_host: https://controller.lab5.example.com
+        controller_username: "{{ usuario }}"
+        controller_password: "{{ senha }}"  
+        name: ANSIBLE_FACT_CACHE_TIMEOUT
+        value: 1
+
+    - name: Aguarda três segundos
+      ansible.builtin.wait_for:
+        timeout: 3
 
     - name: Executa o Job Template que atualiza os facts
       ansible.controller.job_launch:
@@ -27,17 +39,12 @@
         controller_password: "{{ senha }}"
         job_template: Coleta de facts do parque
         wait: true
-      register: job
-      when: false
 
-    - name: Muda o valor de ANSIBLE_FACT_CACHE_TIMEOUT
+    - name: Muda o valor de ANSIBLE_FACT_CACHE_TIMEOUT para o valor original
       ansible.controller.settings:
         controller_host: https://controller.lab5.example.com
         controller_username: "{{ usuario }}"
         controller_password: "{{ senha }}"
         name: ANSIBLE_FACT_CACHE_TIMEOUT
-        value: 10
-      register: testing_settings
-      when: false
-
+        value: "{{ valor_cache_facts_original }}"
 ...
