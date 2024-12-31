@@ -20,8 +20,8 @@
       ansible.builtin.set_fact:
         valor_cache_facts_original: "{{ estado_atual_settings['json']['ANSIBLE_FACT_CACHE_TIMEOUT'] }}"
 
-     - name: Muda o valor de ANSIBLE_FACT_CACHE_TIMEOUT para 1
-       ansible.controller.settings:    
+    - name: Muda o valor de ANSIBLE_FACT_CACHE_TIMEOUT para 1
+      ansible.controller.settings:    
         controller_host: https://controller.lab5.example.com
         controller_username: "{{ usuario }}"
         controller_password: "{{ senha }}"  
