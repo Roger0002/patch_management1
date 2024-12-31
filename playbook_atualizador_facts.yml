@@ -18,7 +18,7 @@
 
     - name: Mostra
       ansible.builtin.debug:
-        var: estado_atual_cache_fact
+        var: estado_atual_cache_fact['json']['ANSIBLE_FACT_CACHE_TIMEOUT']
 
     - name: Executa o Job Template que atualiza os facts
       ansible.controller.job_launch:
