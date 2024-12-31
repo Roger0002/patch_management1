@@ -9,5 +9,6 @@
         controller_username: admin
         controller_password: redhat
         job_template: Coleta de facts do parque
+        wait: true
       register: job
 ...
