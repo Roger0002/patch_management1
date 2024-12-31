@@ -7,7 +7,7 @@
       ansible.controller.job_launch:
         controller_host: https://controller.lab5.example.com
         controller_username: admin
-        controller_password: redhat123
+        controller_password: redhat
         job_template: Coleta de facts do parque
       register: job
 ...
